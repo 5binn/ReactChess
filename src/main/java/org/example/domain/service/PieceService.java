@@ -81,16 +81,30 @@ public class PieceService {
     public void move(String to, String from) {
         Piece toPiece = getPieceByPosition(to);
         Piece fromPiece = getPieceByPosition(from);
+        updatePiece(toPiece, toPiece.getType(), toPiece.getColor(),
+                checkMate(toPiece) ? "checkmate" : "alive");
         updatePiece(fromPiece, null, null, null);
-        updatePiece(toPiece, toPiece.getType(), toPiece.getColor(), "alive");
     }
 
     //잡기
     public void capture(String to, String from) {
         Piece toPiece = getPieceByPosition(to);
         Piece fromPiece = getPieceByPosition(from);
-        updatePiece(toPiece, fromPiece.getType(), fromPiece.getColor(), "alive");
+        updatePiece(toPiece, fromPiece.getType(), fromPiece.getColor(),
+                checkMate(toPiece) ? "checkmate" : "alive");
         updatePiece(fromPiece, null, null, null);
+    }
+
+    //체크메이트
+    private boolean checkMate(Piece piece) {
+        List<String> positions = getAvailablePositions(piece);
+        for (String position : positions) {
+            if (position.contains("-")) {
+                Piece capturePiece = getPieceByPosition(position.substring(1));
+                return capturePiece.getType().equals("k");
+            }
+        }
+        return false;
     }
 
     //각 타입에 따라 가능한 포지션 반환

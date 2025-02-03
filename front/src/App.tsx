@@ -7,7 +7,7 @@ import { sortedData } from "./utils/sort";
 
 function App() {
   const [board, setBoard] = useState<Piece[]>([]);
-  const [turn, setTurn] = useState<"b" | "w">("b");
+  const [turn, setTurn] = useState<"b" | "w" | "">("b");
   const [gameState, setGameState] = useState("");
 
   useEffect(() => {

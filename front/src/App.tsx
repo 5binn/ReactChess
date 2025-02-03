@@ -13,6 +13,7 @@ function App() {
     fetchBoard();
   }, []);
 
+  //보드 불러오기
   function fetchBoard() {
     api
       .get("/pieces/")
@@ -26,6 +27,7 @@ function App() {
     console.log(board);
   }
 
+  //초기 상태로 리셋
   async function resetBoard() {
     const confirmed = window.confirm("다시 시작하시겠습니까?");
     if (confirmed) {
@@ -46,7 +48,7 @@ function App() {
         <div className="btn-container">
           <div className="turn-container">
             <span className="turn-label">차례 : </span>
-            <div className={`turn ${turn ? "black" : "white"}`}></div>
+            <div className={`turn ${turn === "b" ? "black" : "white"}`}></div>
           </div>
           <button className="btn-reset" onClick={resetBoard}>
             재시작

@@ -1,0 +1,24 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 24h
+spring:
+  thymeleaf:
+    cache: false
+    prefix: file:src/main/resources/templates/
+  devtools:
+    livereload:
+      enabled: true
+    restart:
+      enabled: true
+  datasource:
+    url: jdbc:oracle:thin:@//localhost:1521/xe # Oracle 데이터베이스 URL
+    username: system          # 데이터베이스 사용자 이름
+    password: 1234             # 데이터베이스 비밀번호
+    driver-class-name: oracle.jdbc.OracleDriver
+  jpa:
+    hibernate:
+      ddl-auto: create
+      # 앱이 재실행되면 같은 거 삭제하고 생성 -> create
+      # DB 스키마 자동생성, 앱이 재실행되어도 데이터는 유지된다. -> update

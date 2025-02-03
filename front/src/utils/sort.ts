@@ -1,5 +1,6 @@
 import { Piece } from "./types";
 
+//position으로 정렬
 export function sortedData(data: Piece[]) {
   return data.sort((a: Piece, b: Piece) => {
     const fileA = a.position[0];

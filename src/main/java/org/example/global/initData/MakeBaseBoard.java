@@ -5,6 +5,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+//초기 체스판 생성
 @Configuration
 public class MakeBaseBoard {
     private static String getPieceType(char c) {

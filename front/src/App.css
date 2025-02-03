@@ -58,6 +58,11 @@
   color: white;
 }
 
+.state {
+  font-weight: bold;
+  font-size: x-large;
+}
+
 .btn-reset {
   background-color: white;
   color: #333;

@@ -7,11 +7,18 @@ import { sortedData } from "../utils/sort";
 interface BoardProps {
   board: Piece[];
   setBoard: (board: Piece[]) => void;
-  setTurn: (turn: "b" | "w") => void;
-  turn: "b" | "w";
+  setTurn: (turn: "b" | "w" | "") => void;
+  turn: "b" | "w" | "";
+  setGameState: any;
 }
 
-export default function Board({ board, setBoard, setTurn, turn }: BoardProps) {
+export default function Board({
+  board,
+  setBoard,
+  setTurn,
+  turn,
+  setGameState,
+}: BoardProps) {
   const [selectedPosition, setSelectedPosition] = useState("");
 
   function getXYPosition(i: number) {
@@ -46,12 +53,24 @@ export default function Board({ board, setBoard, setTurn, turn }: BoardProps) {
     setTurn(turn === "b" ? "w" : "b");
   }
 
-  async function handleCapture(to: string, from: string) {
+  async function handleCapture(to: string, from: string, type: string) {
     setSelectedPosition("");
     console.log("capture");
     await capture(to, from);
     await cancel();
-    setTurn(turn === "b" ? "w" : "b");
+    if (turn === "b") {
+      setTurn("w");
+      if (type === "k") {
+        setGameState("Black Win!");
+        setTurn("");
+      }
+    } else {
+      setTurn("b");
+      if (type === "k") {
+        setGameState("White Win!");
+        setTurn("");
+      }
+    }
   }
 
   async function ready(position: string) {
@@ -102,7 +121,7 @@ export default function Board({ board, setBoard, setTurn, turn }: BoardProps) {
               piece.state === "ready"
                 ? handleMove(piece.position, selectedPosition)
                 : piece.state === "deathBed"
-                ? handleCapture(piece.position, selectedPosition)
+                ? handleCapture(piece.position, selectedPosition, piece.type)
                 : handleClick(piece.position)
             }
           ></BoardSquare>

@@ -6,7 +6,7 @@ interface BoardSquareProps {
   piece: Piece;
   isBlack: boolean;
   onclick: () => void;
-  turn: "b" | "w";
+  turn: "b" | "w" | "";
 }
 
 export default function BoardSquare({

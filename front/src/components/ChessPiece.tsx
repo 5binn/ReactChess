@@ -3,7 +3,7 @@ import { Piece } from "../utils/types";
 interface ChessPieceProps {
   piece: Piece;
   onclick: () => void;
-  turn: "b" | "w";
+  turn: "b" | "w" | "";
 }
 
 export default function ChessPiece({ piece, onclick, turn }: ChessPieceProps) {

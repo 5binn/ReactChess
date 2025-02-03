@@ -4,17 +4,14 @@ import { Piece } from "../utils/types";
 import BoardSquare from "./BoardSquare";
 import { sortedData } from "../utils/sort";
 
-export default function Board({
-  board,
-  setBoard,
-  setTurn,
-  turn,
-}: {
+interface BoardProps {
   board: Piece[];
-  setBoard: any;
-  setTurn: any;
-  turn: boolean;
-}) {
+  setBoard: (board: Piece[]) => void;
+  setTurn: (turn: "b" | "w") => void;
+  turn: "b" | "w";
+}
+
+export default function Board({ board, setBoard, setTurn, turn }: BoardProps) {
   const [selectedPosition, setSelectedPosition] = useState("");
 
   function getXYPosition(i: number) {
@@ -46,7 +43,7 @@ export default function Board({
     console.log("move");
     await move(to, from);
     await cancel();
-    setTurn((prevTurn: boolean) => !prevTurn);
+    setTurn(turn === "b" ? "w" : "b");
   }
 
   async function handleCapture(to: string, from: string) {
@@ -54,7 +51,7 @@ export default function Board({
     console.log("capture");
     await capture(to, from);
     await cancel();
-    setTurn((prevTurn: boolean) => !prevTurn);
+    setTurn(turn === "b" ? "w" : "b");
   }
 
   async function ready(position: string) {

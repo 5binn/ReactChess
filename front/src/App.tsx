@@ -7,7 +7,7 @@ import { sortedData } from "./utils/sort";
 
 function App() {
   const [board, setBoard] = useState<Piece[]>([]);
-  const [turn, setTurn] = useState(true);
+  const [turn, setTurn] = useState<"b" | "w">("b");
 
   useEffect(() => {
     fetchBoard();
@@ -29,7 +29,7 @@ function App() {
   async function resetBoard() {
     const confirmed = window.confirm("다시 시작하시겠습니까?");
     if (confirmed) {
-      setTurn(true);
+      setTurn(turn === "b" ? "w" : "b");
       try {
         const response = await api.patch("/pieces/reset");
         console.log(response.data);

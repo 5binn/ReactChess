@@ -1,5 +1,6 @@
 import { Piece } from "./types";
 
+//해당 하는 말의 타입별 이동 가능한 좌표들 반환
 export function getAvailablePositions({
   pieces,
   piece,
@@ -105,7 +106,7 @@ function getMoves({
       positions.push(column + row);
     }
     if (canCapture({ pieces, column, row, piece })) {
-      positions.push("-" + column + row);
+      positions.push("-" + column + row); //잡을 수 있는 상대 말의 좌표는 "-" 추가
     }
   });
   return positions;
@@ -134,7 +135,7 @@ function getDirectionalMoves({
       if (
         canCapture({ pieces, column: String.fromCharCode(column), row, piece })
       ) {
-        positions.push("-" + String.fromCharCode(column) + row);
+        positions.push("-" + String.fromCharCode(column) + row); //잡을 수 있는 상대 말의 좌표는 "-" 추가
         break;
       }
       if (!canMove({ pieces, column: String.fromCharCode(column), row })) {
@@ -182,7 +183,7 @@ function pawn({ pieces, piece }: { pieces: Piece[]; piece: Piece }) {
     })
   ) {
     positions.push(
-      "-" + String.fromCharCode(column.charCodeAt(0) - 1) + (row + direction)
+      "-" + String.fromCharCode(column.charCodeAt(0) - 1) + (row + direction) //잡을 수 있는 상대 말의 좌표는 "-" 추가
     );
   }
   //오른쪽 대각선
@@ -195,7 +196,7 @@ function pawn({ pieces, piece }: { pieces: Piece[]; piece: Piece }) {
     })
   ) {
     positions.push(
-      "-" + String.fromCharCode(column.charCodeAt(0) + 1) + (row + direction)
+      "-" + String.fromCharCode(column.charCodeAt(0) + 1) + (row + direction) //잡을 수 있는 상대 말의 좌표는 "-" 추가
     );
   }
   return positions;

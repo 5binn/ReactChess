@@ -18,14 +18,16 @@ export default function Board({
   turn,
   setGameState,
 }: BoardProps) {
-  const [selectedPosition, setSelectedPosition] = useState("");
-  const [prevBoard, setPrevBoard] = useState<Piece[]>([]);
+  const [selectedPosition, setSelectedPosition] = useState(""); //선택된 좌표
+  const [prevBoard, setPrevBoard] = useState<Piece[]>([]); //이전 보드 상태
 
+  // 배열에서 x, y 위치 계산
   function getXYPosition(i: number) {
     const x = i % 8;
     const y = Math.abs(Math.floor(i / 8) - 7);
     return { x, y };
   }
+  // 검은색 칸인지 확인
   function isBlack(i: number) {
     const { x, y } = getXYPosition(i);
     return (x + y) % 2 === 1;
@@ -34,11 +36,12 @@ export default function Board({
   useEffect(() => {
     console.log("Selected Position:", selectedPosition);
     if (selectedPosition) {
-      setPrevBoard(board);
-      ready(selectedPosition);
+      setPrevBoard(board); // 이전 보드 상태 저장
+      ready(selectedPosition); // 선택한 좌표에서 준비
     }
   }, [selectedPosition]);
 
+  //클릭 이벤트
   async function handleClick(position: string) {
     if (selectedPosition.length === 0 || selectedPosition === position) {
       setPrevBoard(board);
@@ -53,6 +56,7 @@ export default function Board({
     }
   }
 
+  //준비 상태 변환
   async function ready(position: string) {
     const piece: Piece | null = getPieceByPosition({ pieces: board, position });
     if (!piece) return;
@@ -77,6 +81,7 @@ export default function Board({
     setBoard(updatedBoard);
   }
 
+  //준비상태에서 이동 가능한 칸 클릭 이벤트
   async function handleMove(
     to: string,
     from: string,
@@ -100,6 +105,7 @@ export default function Board({
     }
   }
 
+  //이동시킨 보드 반환
   async function move(to: string, from: string, state: string) {
     const toPiece = getPieceByPosition({ pieces: board, position: to });
     const fromPiece = getPieceByPosition({ pieces: board, position: from });
@@ -152,9 +158,7 @@ export default function Board({
                     piece.type,
                     piece.state
                   )
-                : // : piece.state === "deathBed"
-                  // ? handleCapture(piece.position, selectedPosition, piece.type)
-                  handleClick(piece.position)
+                : handleClick(piece.position)
             }
           ></BoardSquare>
         </div>

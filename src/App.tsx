@@ -9,6 +9,7 @@ function App() {
   const [board, setBoard] = useState<Piece[]>([]);
   const [turn, setTurn] = useState<"b" | "w" | "">("b");
   const [gameState, setGameState] = useState("");
+  const [reverse, setReverse] = useState(false);
 
   useEffect(() => {
     setBoard(sortedData(baseBoard()));
@@ -39,9 +40,19 @@ function App() {
           <div className="turn-container">
             <span className="state">{gameState}</span>
           </div>
-          <button className="btn-reset" onClick={resetBoard}>
-            재시작
-          </button>
+          <div>
+            <button
+              className="btn-reset"
+              onClick={() => {
+                setReverse((prev) => !prev);
+              }}
+            >
+              반전
+            </button>
+            <button className="btn-reset" onClick={resetBoard}>
+              재시작
+            </button>
+          </div>
         </div>
         <div className="board-container">
           <Board
@@ -50,6 +61,7 @@ function App() {
             setTurn={setTurn}
             setGameState={setGameState}
             turn={turn}
+            reverse={reverse}
           ></Board>
         </div>
       </div>

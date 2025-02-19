@@ -9,6 +9,7 @@ interface BoardProps {
   setTurn: (turn: "b" | "w" | "") => void;
   turn: "b" | "w" | "";
   setGameState: any;
+  reverse: boolean;
 }
 
 export default function Board({
@@ -17,6 +18,7 @@ export default function Board({
   setTurn,
   turn,
   setGameState,
+  reverse,
 }: BoardProps) {
   const [selectedPosition, setSelectedPosition] = useState(""); //선택된 좌표
   const [prevBoard, setPrevBoard] = useState<Piece[]>([]); //이전 보드 상태
@@ -150,6 +152,7 @@ export default function Board({
             piece={piece}
             turn={turn}
             isBlack={isBlack(piece.id - 1)}
+            reverse={reverse}
             onclick={() =>
               piece.state === "ready" || piece.state === "deathBed"
                 ? handleMove(

@@ -7,6 +7,7 @@ interface BoardSquareProps {
   isBlack: boolean;
   onclick: () => void;
   turn: "b" | "w" | "";
+  reverse: boolean;
 }
 
 export default function BoardSquare({
@@ -14,11 +15,17 @@ export default function BoardSquare({
   isBlack,
   onclick,
   turn,
+  reverse,
 }: BoardSquareProps) {
   return (
     <div className="board-square">
       <Square isBlack={isBlack}>
-        <ChessPiece piece={piece} onclick={onclick} turn={turn} />
+        <ChessPiece
+          piece={piece}
+          onclick={onclick}
+          turn={turn}
+          reverse={reverse}
+        />
       </Square>
     </div>
   );

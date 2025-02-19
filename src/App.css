@@ -123,6 +123,10 @@
   max-height: 70%;
 }
 
+.reverse {
+  transform: rotate(180deg);
+}
+
 .ready {
   cursor: pointer;
   max-width: 80%;
